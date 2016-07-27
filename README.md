@@ -1,3 +1,5 @@
+[![InfSharp-Security](https://img.shields.io/badge/.NET-4.5-green.svg)]()
+[![Build Status](https://travis-ci.org/KroneckerX/InfSharp-Security.svg?branch=master)](https://travis-ci.org/KroneckerX/InfSharp-Security)
 # InfSharp-Security
 
 CSharp Encryption Library
