@@ -53,6 +53,31 @@ namespace InfSharp.Security
 
 
         #region Encrypt
+        public static string EncryptString(string secretMessage, string password)
+        {
+            using (AesHmac aes = new AesHmac(password))
+            {
+                return aes.Encrypt(secretMessage);
+            }
+        }
+
+        public string Encrypt(string secretMessage)
+        {
+            if (isDisposed)
+            {
+                throw new ObjectDisposedException(OBJ_DISPOSED_MESSAGE);
+            }
+
+            if (secretMessage == null || secretMessage.Length == 0)
+            {
+                throw new ArgumentNullException("Secret message can not be null or empty");
+            }
+
+            byte[] secretData = Encoding.UTF8.GetBytes(secretMessage);
+            byte[] cipheredMessage = Encrypt(secretData);
+            return Convert.ToBase64String(cipheredMessage);
+        }
+
         public byte[] Encrypt(byte[] secretData)
         {
             if (isDisposed)
@@ -65,6 +90,12 @@ namespace InfSharp.Security
                 throw new ArgumentNullException("Secret message can not be null or empty");
             }
 
+
+            return Encrypt(secretData, hashedSecret, authKeyInitiator, iterations);
+        }
+
+        private static byte[] Encrypt(byte[] secretData, string hashedSecret, string authKeyInitiator, int iterations)
+        {
             int totalDataIndex = 0;
             byte[] extraData = new byte[(SALT_BIT_SIZE / DENOMINATOR) * 2], secretKey, authKey;
 
@@ -86,24 +117,7 @@ namespace InfSharp.Security
             return Encrypt(secretData, secretKey, authKey, extraData);
         }
 
-        public string Encrypt(string secretMessage)
-        {
-            if (isDisposed)
-            {
-                throw new ObjectDisposedException(OBJ_DISPOSED_MESSAGE);
-            }
-
-            if (secretMessage == null || secretMessage.Length == 0)
-            {
-                throw new ArgumentNullException("Secret message can not be null or empty");
-            }
-
-            byte[] secretData = Encoding.UTF8.GetBytes(secretMessage);
-            byte[] cipheredMessage = Encrypt(secretData);
-            return Convert.ToBase64String(cipheredMessage);
-        }
-
-        private byte[] Encrypt(byte[] secretMessage, byte[] secretKey, byte[] authKey, byte[] extraData)
+        private static byte[] Encrypt(byte[] secretMessage, byte[] secretKey, byte[] authKey, byte[] extraData)
         {
             byte[] cipherText;
             byte[] iv;
@@ -155,6 +169,14 @@ namespace InfSharp.Security
         #endregion
 
         #region Decrypt
+        public static string DecryptString(string cipheredMessage, string password)
+        {
+            using (AesHmac aes = new AesHmac(password))
+            {
+                return aes.Decrypt(cipheredMessage);
+            }
+        }
+
         public string Decrypt(string cipheredBase64String)
         {
             if (isDisposed)
@@ -179,12 +201,16 @@ namespace InfSharp.Security
                 throw new ObjectDisposedException(OBJ_DISPOSED_MESSAGE);
             }
 
-
             if (cipheredData == null || cipheredData.Length == 0)
             {
                 throw new ArgumentNullException("Ciphered data can not be null or empty");
             }
 
+            return Decrypt(cipheredData, hashedSecret, authKeyInitiator, iterations);
+        }
+
+        private static byte[] Decrypt(byte[] cipheredData, string hashedSecret, string authKeyInitiator, int iterations)
+        {
             byte[] secretSalt = new byte[SALT_BIT_SIZE / DENOMINATOR];
             byte[] authSalt = new byte[SALT_BIT_SIZE / DENOMINATOR];
 
@@ -207,7 +233,7 @@ namespace InfSharp.Security
             return Decrypt(cipheredData, secretKey, authKey, secretSalt.Concat(authSalt).ToArray());
         }
 
-        private byte[] Decrypt(byte[] cipheredMessage, byte[] secretKey, byte[] authKey, byte[] nonSecretMessage)
+        private static byte[] Decrypt(byte[] cipheredMessage, byte[] secretKey, byte[] authKey, byte[] nonSecretMessage)
         {
             byte[] sentExtra, calcExtra;
 
@@ -271,10 +297,9 @@ namespace InfSharp.Security
         }
         #endregion
 
-
         #region Helpers
 
-        private byte[] CreateNewKey()
+        private static byte[] CreateNewKey()
         {
             var key = new byte[KEY_BIT_SIZE / DENOMINATOR];
             using (RandomNumberGenerator randomGenerator = RandomNumberGenerator.Create())
