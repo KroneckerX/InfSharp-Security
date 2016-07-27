@@ -56,5 +56,17 @@ namespace InfSharp.Security.Test
             string xmlDecryptedText = aeshmac.Decrypt(xmlEncryptedText);
             Assert.AreEqual<string>(decryptedText, xmlDecryptedText);
         }
+
+        [TestMethod]
+        public void StaticTest()
+        {
+            string plaintText = "PLAIN?TEXT";
+            string passwordText = "Infxios?1245";
+
+            string encryptedText = AesHmac.EncryptString(plaintText, passwordText);
+            string decryptedText = AesHmac.DecryptString(encryptedText, passwordText);
+
+            Assert.AreEqual<string>(plaintText, decryptedText);
+        }
     }
 }
