@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7B1DBAF6-75E4-4DBA-BE48-9D7591FA73E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfSharp.Security", "InfSharp.Security\InfSharp.Security.csproj", "{23222ABD-68DA-48FD-A4DB-50879594BD00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfSharp.Security.Test", "InfSharp.Security.Test\InfSharp.Security.Test.csproj", "{5A9FE888-042C-49A7-A0D9-0D6E4117FA15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23222ABD-68DA-48FD-A4DB-50879594BD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23222ABD-68DA-48FD-A4DB-50879594BD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23222ABD-68DA-48FD-A4DB-50879594BD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23222ABD-68DA-48FD-A4DB-50879594BD00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A9FE888-042C-49A7-A0D9-0D6E4117FA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A9FE888-042C-49A7-A0D9-0D6E4117FA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A9FE888-042C-49A7-A0D9-0D6E4117FA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A9FE888-042C-49A7-A0D9-0D6E4117FA15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{23222ABD-68DA-48FD-A4DB-50879594BD00} = {7B1DBAF6-75E4-4DBA-BE48-9D7591FA73E7}
+		{5A9FE888-042C-49A7-A0D9-0D6E4117FA15} = {7B1DBAF6-75E4-4DBA-BE48-9D7591FA73E7}
+	EndGlobalSection
+EndGlobal
