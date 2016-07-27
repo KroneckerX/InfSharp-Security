@@ -20,6 +20,7 @@ namespace InfSharp.Security
         private const int KEY_BIT_SIZE = 256;
         private const int MIN_PASS_LEN = 12;
         private const int DEFAULT_ITERATION = 1000;
+        private const int DEFAULT_STATIC_ITERATION = 100;
         private const int SALT_BIT_SIZE = 64;
         private const string OBJ_DISPOSED_MESSAGE = "Object is disposed.";
 
@@ -55,7 +56,7 @@ namespace InfSharp.Security
         #region Encrypt
         public static string EncryptString(string secretMessage, string password)
         {
-            using (AesHmac aes = new AesHmac(password))
+            using (AesHmac aes = new AesHmac(password, DEFAULT_STATIC_ITERATION))
             {
                 return aes.Encrypt(secretMessage);
             }
@@ -171,7 +172,7 @@ namespace InfSharp.Security
         #region Decrypt
         public static string DecryptString(string cipheredMessage, string password)
         {
-            using (AesHmac aes = new AesHmac(password))
+            using (AesHmac aes = new AesHmac(password, DEFAULT_STATIC_ITERATION))
             {
                 return aes.Decrypt(cipheredMessage);
             }
