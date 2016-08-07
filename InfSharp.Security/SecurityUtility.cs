@@ -4,7 +4,7 @@ using System.Text;
 
 namespace InfSharp.Security
 {
-    internal class SecurityUtility
+    public class SecurityUtility
     {
         private const int RANDOM_STRLEN_LIMIT = 256;
         private const int RANDOM_STR_PADDING = 20;
@@ -18,7 +18,7 @@ namespace InfSharp.Security
             }
         }
 
-        internal static string ComposeSecret(string username, string password)
+        public static string ComposeSecret(string username, string password)
         {
             byte[] usernameBytes = Encoding.GetBytes(username);
             byte[] passwordBytes = Encoding.GetBytes(password);
