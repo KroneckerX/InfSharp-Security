@@ -62,7 +62,7 @@ namespace InfSharp.Security
             return Convert.ToBase64String(overall);
         }
 
-        internal static string ComposeRandomString()
+        public static string ComposeRandomString()
         {
             return Convert.ToBase64String(ComposeRandomBytes());
         }
